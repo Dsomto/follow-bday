@@ -32,6 +32,12 @@
   <main class="mobile-only" id="app">
 
     <canvas id="petals" aria-hidden="true"></canvas>
+    <canvas id="balloons" aria-hidden="true"></canvas>
+
+    <!-- pinned ribbon (always-on) -->
+    <div class="ribbon" aria-hidden="true">
+      <span class="ribbon-text">today is for <em>Princess</em> ♡</span>
+    </div>
 
     <!-- Floating UI -->
     <button id="musicToggle" class="floating-btn music-btn" aria-label="Toggle background music">
@@ -68,13 +74,36 @@
         <div class="sparkle s1"></div>
         <div class="sparkle s2"></div>
         <div class="sparkle s3"></div>
+        <div class="sparkle s4"></div>
+        <div class="sparkle s5"></div>
+        <div class="halo"></div>
       </div>
       <p class="kicker">today, the heavens noticed</p>
-      <h1 class="hero-title">Happy Birthday,<br/><span class="hero-name">Chiamaka Princess</span></h1>
+      <h1 class="hero-title">Happy Birthday,</h1>
+      <h2 class="hero-name" id="heroName" aria-label="Chiamaka Princess">
+        <span class="hn-word">Chiamaka</span>
+        <span class="hn-word">Princess</span>
+      </h2>
       <p class="hero-tag">they call you <span class="ink">Follow</span> — and we follow because <em>you</em> follow Him.</p>
       <div class="scroll-hint" aria-hidden="true">
-        <span>keep going</span>
+        <span>scroll down, slowly</span>
         <div class="scroll-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- TODAY IS YOUR DAY -->
+    <section id="today" class="section today reveal">
+      <div class="today-card">
+        <p class="today-kicker">today —</p>
+        <h2 class="today-line">the world quietly stops <br/>to celebrate <em>you</em>.</h2>
+        <p class="today-date" id="todayDate"></p>
+        <div class="today-bouquet" aria-hidden="true">
+          <span class="bloom b1">✿</span>
+          <span class="bloom b2">❀</span>
+          <span class="bloom b3">✿</span>
+          <span class="bloom b4">❀</span>
+          <span class="bloom b5">✿</span>
+        </div>
       </div>
     </section>
 
@@ -83,21 +112,28 @@
       <div class="paper">
         <p class="paper-from">a small note —</p>
         <p>
-          Princess, I know we have not known each other long.
-          Honestly, that is part of why I'm doing this.
-          You don't get this far inside someone's notice in a few weeks
-          unless something about you is loud — quietly loud, the good kind.
+          Princess. Even while we were serving together,
+          I was watching. Quietly, the way you'd want it watched —
+          not for show, but for what was real.
         </p>
         <p>
-          So before anything else, I want you to know:
-          you are easy to root for. You are easier to celebrate.
-          And the people who get to call you their friend are quietly lucky,
-          even when they don't say it out loud.
+          And what I saw was a girl who shows up.
+          A girl who carries the small, sacred, unglamorous things
+          like they matter — because she knows they do.
+          A girl who treats God like family. A girl who treats people
+          like they're already loved before she meets them.
         </p>
         <p>
-          Today, let me say it out loud.
+          You make ordinary days feel like worship.
+          You make rooms softer. You make people braver.
+          And whatever the rest of this year decides to bring,
+          it is going to meet a woman who is ready, and held, and rising.
         </p>
-        <p class="signoff">— happy birthday, Follow</p>
+        <p>
+          Today, the universe pauses for you.<br/>
+          So do I.
+        </p>
+        <p class="signoff">— happy birthday, Follow ♡</p>
       </div>
     </section>
 
@@ -105,13 +141,30 @@
     <section id="thirty" class="section thirty reveal">
       <header class="section-head">
         <p class="kicker">chapter one</p>
-        <h2>30 things people say about you</h2>
-        <p class="subhead">tap any card to flip it. some have a name on the back.</p>
+        <h2>30 things <em>everyone</em> says about you</h2>
+        <p class="subhead">👆 tap any card. it flips. some have a name on the back.</p>
       </header>
 
       <div class="cards" id="cards"></div>
 
       <p class="cards-foot">…and there are more. there are always more.</p>
+    </section>
+
+    <!-- BLUSH -->
+    <section id="blush" class="section blush reveal">
+      <div class="blush-frame">
+        <p class="kicker">honestly —</p>
+        <h2 class="blush-line">you are <em>so</em> easy to admire.</h2>
+        <p class="blush-body">
+          The way your eyes do that thing when you're trying not to laugh.
+          The way you say <em>amen</em> like you mean it.
+          The way you make people's bad days softer just by walking in.
+          The way you fold your hands when you're listening — like the person talking matters.
+        </p>
+        <p class="blush-body">
+          God really took His time with you. <br/>And I don't think He rushed any part.
+        </p>
+      </div>
     </section>
 
     <!-- BIBLE VERSE -->
@@ -136,14 +189,35 @@
       </div>
     </section>
 
-    <!-- GALLERY -->
+    <!-- GALLERY (polaroid stack) -->
     <section id="gallery" class="section gallery reveal">
       <header class="section-head">
         <p class="kicker">chapter two</p>
         <h2>moments</h2>
-        <p class="subhead">swipe →</p>
+        <p class="subhead">👈 swipe through, slowly</p>
       </header>
-      <div class="gallery-strip" id="galleryStrip"></div>
+      <div class="polaroids" id="polaroids"></div>
+      <p class="gallery-cap">a small album, just for tonight ♡</p>
+    </section>
+
+    <!-- IF I COULD GIVE YOU ANYTHING -->
+    <section id="wishes" class="section wishes reveal">
+      <header class="section-head">
+        <p class="kicker">if I could —</p>
+        <h2>I'd give you all of these.</h2>
+      </header>
+      <ul class="wish-list">
+        <li><span class="wish-mark">i.</span> a year that holds you, instead of asking you to hold it.</li>
+        <li><span class="wish-mark">ii.</span> friendships that pour back, in the same cup you've poured from.</li>
+        <li><span class="wish-mark">iii.</span> the white coat you've been quietly imagining yourself in.</li>
+        <li><span class="wish-mark">iv.</span> a brain that picks up data analysis like it was waiting for you.</li>
+        <li><span class="wish-mark">v.</span> a future patient, somewhere, whose life turns because <em>you</em> walked in.</li>
+        <li><span class="wish-mark">vi.</span> mornings that smell like coffee and answered prayers.</li>
+        <li><span class="wish-mark">vii.</span> a love story you don't have to convince anyone of.</li>
+        <li><span class="wish-mark">viii.</span> the kind of laugh that surprises even you.</li>
+        <li><span class="wish-mark">ix.</span> rest, the kind that feels permitted.</li>
+        <li><span class="wish-mark">x.</span> God, closer this year than He has ever been. (and He has been close.)</li>
+      </ul>
     </section>
 
     <!-- ============== THE GIFT (one-time choice) ============== -->
@@ -276,6 +350,34 @@
           <details class="advice-card">
             <summary>
               <span class="adv-num">v</span>
+              <span class="adv-title">on medicine — your white coat</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>You picked one of the heaviest, holiest professions a person can pick. People will hand you their bodies, their parents, their children — at the worst moments of their lives — and trust you to do the right thing with them. That is not small. That is priesthood with gloves on.</p>
+              <p>The road is long. It is meant to be. The exams will try to break you. They will not. You were not made fragile.</p>
+              <p>Read until your eyes hurt. Then read a little more. Then sleep. Then come back. Discipline beats brilliance on a long enough timeline — and you have both.</p>
+              <p>And on the days you doubt the call: remember that you've already practiced. Every soul you've followed up on was a patient too — of a different kind. You've been training for this longer than you think.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">vi</span>
+              <span class="adv-title">on data analysis — your second wing</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Adding data to medicine is one of the smartest moves a young doctor can make this decade. Hospitals run on numbers nobody is reading well — you'll be the one who reads them well. That's leverage.</p>
+              <p>Start small and stay consistent. Excel first — really first. Then SQL. Then Python (pandas, numpy). Then a real project on real medical data — public datasets are free and full of stories waiting for someone like you.</p>
+              <p>Pick one course and finish it before you start another. Build, don't just learn. Show your work — even if it's only on your laptop. <em>Done</em> is a muscle.</p>
+              <p>You don't have to choose between healing and analyzing. The future of medicine is the doctor who can do both. Be that doctor.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">vii</span>
               <span class="adv-title">on people you love</span>
               <span class="adv-arrow">+</span>
             </summary>
@@ -287,7 +389,7 @@
 
           <details class="advice-card">
             <summary>
-              <span class="adv-num">vi</span>
+              <span class="adv-num">viii</span>
               <span class="adv-title">on money (since you didn't pick it)</span>
               <span class="adv-arrow">+</span>
             </summary>
@@ -300,7 +402,7 @@
 
           <details class="advice-card">
             <summary>
-              <span class="adv-num">vii</span>
+              <span class="adv-num">ix</span>
               <span class="adv-title">on follow-up — the work you do</span>
               <span class="adv-arrow">+</span>
             </summary>
@@ -312,7 +414,7 @@
 
           <details class="advice-card">
             <summary>
-              <span class="adv-num">viii</span>
+              <span class="adv-num">x</span>
               <span class="adv-title">one last thing</span>
               <span class="adv-arrow">+</span>
             </summary>
@@ -340,7 +442,7 @@
       <header class="section-head">
         <p class="kicker">chapter four</p>
         <h2>make a wish</h2>
-        <p class="subhead">tap each flame to blow it out</p>
+        <p class="subhead">👆 tap each flame, one by one</p>
       </header>
 
       <div class="cake">
@@ -394,11 +496,12 @@
         <p>
           May this year find you laughing at things that used to make you cry.
           May the people you have followed up on rise and call you blessed.
+          May the books you read open new doors. May the data you study save lives.
           May your heart stay tender. May your spine stay straight.
           May you be loved well, and know it.
         </p>
         <p class="signoff">happy birthday, Follow ♡</p>
-        <button class="secret-btn" id="secretBtn">tap me 7 times</button>
+        <button class="secret-btn" id="secretBtn">👆 tap me 7 times</button>
         <div class="secret hidden" id="secretMessage">
           <p>okay, the secret —</p>
           <p>I see you. <br>I really do. <br>and so does He.</p>
@@ -406,9 +509,20 @@
       </div>
     </section>
 
+    <!-- P.S. -->
+    <section id="ps" class="section ps reveal">
+      <div class="ps-card">
+        <p class="ps-tag">P.S.</p>
+        <p>if no one tells you tonight before your eyes close —</p>
+        <p class="ps-line">you were the best part of someone's day today.</p>
+        <p class="ps-small">probably more than one someone. <br/>(definitely more than one.)</p>
+        <p class="ps-sign">— sleep well, Princess</p>
+      </div>
+    </section>
+
     <footer class="footer">
       <p>made with love · for Chiamaka Princess</p>
-      <p class="tiny">pull down for a surprise ↓</p>
+      <p class="tiny">↓ pull the top of the page for one more surprise</p>
     </footer>
 
   </main>

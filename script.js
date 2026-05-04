@@ -9,6 +9,36 @@
   const RECIPIENT_EMAIL = 'somtochukwu.okoma@ethnoscyber.com';
   const STORAGE_KEY = 'follow-bday-v1';
 
+  /* ---------- ?reset / ?test URL trick (private to you) ---------- */
+  // visiting /?reset=1 wipes the local choice so you can preview both gift paths
+  // visiting /?test=1 wipes on every load (handy while QA-ing)
+  const params = new URLSearchParams(location.search);
+  if (params.has('reset') || params.has('test')) {
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    if (params.has('reset')) {
+      // strip the param so the URL stays clean for sharing
+      params.delete('reset');
+      const clean = location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
+      history.replaceState(null, '', clean);
+      // tiny confirmation toast
+      window.addEventListener('DOMContentLoaded', () => {
+        const t = document.createElement('div');
+        t.textContent = 'reset · pick again';
+        Object.assign(t.style, {
+          position: 'fixed', top: '60px', left: '50%', transform: 'translateX(-50%)',
+          background: 'rgba(217, 119, 154, 0.95)', color: 'white',
+          padding: '8px 16px', borderRadius: '999px', fontSize: '13px',
+          fontFamily: 'Quicksand, sans-serif', letterSpacing: '0.06em',
+          zIndex: '9999', boxShadow: '0 8px 24px -8px rgba(75, 50, 110, 0.4)',
+          opacity: '0', transition: 'opacity 0.4s ease'
+        });
+        document.body.appendChild(t);
+        requestAnimationFrame(() => { t.style.opacity = '1'; });
+        setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 1800);
+      });
+    }
+  }
+
   /* ---------- 30 things ---------- */
   const THIRTY = [
     { text: "She's so prayerful — like, deeply.", from: "an aunty in church" },
@@ -76,23 +106,33 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
-  /* ---------- Gallery ---------- */
-  const galleryStrip = document.getElementById('galleryStrip');
+  /* ---------- Polaroid gallery ---------- */
+  const polaroids = document.getElementById('polaroids');
   const captions = [
     "barefoot, brave",
-    "joy looks good on you",
-    "regal — and you don't even try",
+    "joy, looking good on you",
+    "regal — and not even trying",
     "HBD to me ✿"
   ];
-  if (galleryStrip) {
+  if (polaroids) {
     [1, 2, 3, 4].forEach((n, i) => {
       const item = document.createElement('div');
-      item.className = 'gallery-item';
+      item.className = 'polaroid';
       item.innerHTML = `
-        <img src="assets/photos/${n}.jpg" alt="moment ${n}" onerror="this.style.display='none'" />
-        <div class="caption">${escape(captions[i] || "")}</div>`;
-      galleryStrip.appendChild(item);
+        <img src="assets/photos/${n}.jpg" alt="moment ${n}" onerror="this.style.opacity='0.2'" />
+        <div class="pcap">${escape(captions[i] || "")}</div>`;
+      polaroids.appendChild(item);
     });
+  }
+
+  /* ---------- Today's date stamp ---------- */
+  const todayDateEl = document.getElementById('todayDate');
+  if (todayDateEl) {
+    const d = new Date();
+    const fmt = d.toLocaleDateString('en-GB', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+    });
+    todayDateEl.textContent = fmt.toLowerCase();
   }
 
   /* ---------- Enter overlay ---------- */
@@ -124,6 +164,7 @@
   window.addEventListener('resize', () => {
     sizeCanvas(petalCanvas);
     sizeCanvas(confettiCanvas);
+    sizeCanvas(balloonCanvas);
   });
 
   function spawnPetal() {
@@ -160,6 +201,101 @@
     requestAnimationFrame(petalLoop);
   }
   petalLoop();
+
+  /* ---------- Balloons (floating up, with strings, gentle sway) ---------- */
+  const balloonCanvas = document.getElementById('balloons');
+  const balloonCtx = balloonCanvas?.getContext('2d');
+  sizeCanvas(balloonCanvas);
+  let balloons = [];
+  const BALLOON_COLORS = [
+    { body: '#F8B5C7', shine: '#FFFAF4' },  // pink
+    { body: '#C8B6E8', shine: '#FFFAF4' },  // lavender
+    { body: '#FFC9A4', shine: '#FFFAF4' },  // peach
+    { body: '#B0DDF0', shine: '#FFFAF4' },  // sky
+    { body: '#F4D08C', shine: '#FFFAF4' },  // soft gold
+    { body: '#E89AB1', shine: '#FFFAF4' },  // rose
+  ];
+
+  function spawnBalloon() {
+    const color = BALLOON_COLORS[Math.floor(Math.random() * BALLOON_COLORS.length)];
+    const r = (22 + Math.random() * 14) * devicePixelRatio;
+    return {
+      baseX: Math.random() * balloonCanvas.width,
+      x: 0,
+      y: balloonCanvas.height + r * 4,
+      r,
+      vy: (0.45 + Math.random() * 0.35) * devicePixelRatio,
+      sway: 18 * devicePixelRatio + Math.random() * 24 * devicePixelRatio,
+      swayPhase: Math.random() * Math.PI * 2,
+      swaySpeed: 0.012 + Math.random() * 0.014,
+      color,
+      alpha: 0.85,
+      stringWobble: Math.random() * Math.PI * 2,
+    };
+  }
+
+  // pre-seed a few balloons at varying heights so they appear immediately
+  for (let i = 0; i < 5; i++) {
+    const b = spawnBalloon();
+    b.y = balloonCanvas.height * (0.3 + Math.random() * 0.7);
+    balloons.push(b);
+  }
+
+  function balloonLoop() {
+    if (!balloonCtx) return;
+    balloonCtx.clearRect(0, 0, balloonCanvas.width, balloonCanvas.height);
+    if (balloons.length < 8 && Math.random() < 0.04) balloons.push(spawnBalloon());
+    balloons = balloons.filter(b => b.y > -b.r * 6);
+
+    balloons.forEach(b => {
+      b.y -= b.vy;
+      b.swayPhase += b.swaySpeed;
+      b.stringWobble += 0.05;
+      b.x = b.baseX + Math.sin(b.swayPhase) * b.sway;
+
+      balloonCtx.save();
+      balloonCtx.globalAlpha = b.alpha;
+
+      // string
+      balloonCtx.beginPath();
+      balloonCtx.moveTo(b.x, b.y + b.r * 1.05);
+      const segs = 8;
+      for (let i = 1; i <= segs; i++) {
+        const t = i / segs;
+        const sx = b.x + Math.sin(b.stringWobble + t * 4) * 4 * devicePixelRatio * t;
+        const sy = b.y + b.r * 1.05 + b.r * 1.6 * t;
+        balloonCtx.lineTo(sx, sy);
+      }
+      balloonCtx.strokeStyle = 'rgba(120, 100, 140, 0.45)';
+      balloonCtx.lineWidth = 1 * devicePixelRatio;
+      balloonCtx.stroke();
+
+      // tie
+      balloonCtx.fillStyle = b.color.body;
+      balloonCtx.beginPath();
+      balloonCtx.moveTo(b.x - 3 * devicePixelRatio, b.y + b.r);
+      balloonCtx.lineTo(b.x + 3 * devicePixelRatio, b.y + b.r);
+      balloonCtx.lineTo(b.x, b.y + b.r * 1.12);
+      balloonCtx.closePath();
+      balloonCtx.fill();
+
+      // body (slight pear shape)
+      balloonCtx.beginPath();
+      balloonCtx.ellipse(b.x, b.y, b.r * 0.92, b.r * 1.05, 0, 0, Math.PI * 2);
+      balloonCtx.fill();
+
+      // shine
+      balloonCtx.globalAlpha = b.alpha * 0.55;
+      balloonCtx.fillStyle = b.color.shine;
+      balloonCtx.beginPath();
+      balloonCtx.ellipse(b.x - b.r * 0.32, b.y - b.r * 0.35, b.r * 0.18, b.r * 0.32, -0.4, 0, Math.PI * 2);
+      balloonCtx.fill();
+
+      balloonCtx.restore();
+    });
+    requestAnimationFrame(balloonLoop);
+  }
+  balloonLoop();
 
   /* ---------- Confetti ---------- */
   const confettiCanvas = document.getElementById('confetti');
