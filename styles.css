@@ -498,22 +498,44 @@ body {
   text-transform: uppercase;
 }
 .card-back {
-  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 250, 244, 0.25), transparent 60%),
+    linear-gradient(135deg, var(--accent), var(--accent-3));
   color: white;
   transform: rotateY(180deg);
-  font-family: var(--font-script);
-  font-size: 22px;
   text-align: center;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
-.card-back .from {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  margin-bottom: 6px;
+.card-back::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px dashed rgba(255, 250, 244, 0.5);
+  border-radius: 16px;
+  pointer-events: none;
+}
+.back-num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 36px;
+  color: rgba(255, 250, 244, 0.95);
+  line-height: 1;
+}
+.back-heart {
+  font-size: 30px;
+  margin: 6px 0 4px;
+  color: rgba(255, 250, 244, 0.95);
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+.back-tag {
+  font-family: var(--font-script);
+  font-size: 18px;
+  color: rgba(255, 250, 244, 0.85);
+  letter-spacing: 0.04em;
 }
 
 /* Stagger card entrance */

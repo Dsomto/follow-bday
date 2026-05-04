@@ -39,44 +39,64 @@
     }
   }
 
-  /* ---------- 30 things (concrete, human, things people actually say) ---------- */
-  const THIRTY = [
-    { text: "She prays. Like, the long ones.",                              from: "your roommate" },
-    { text: "She greets the gateman before she greets anybody else.",        from: "auntie Ngozi" },
-    { text: "She'll text you to ask if you've eaten. Twice.",                from: "your sister" },
-    { text: "She remembers what you told her last month.",                   from: "a friend you forgot you told" },
-    { text: "She doesn't talk about people behind their backs. It's rare.",  from: "an honest friend" },
-    { text: "She listens with her whole face.",                              from: "the youth pastor" },
-    { text: "She'll send a Bible verse on a random Tuesday.",                from: "the WhatsApp group" },
-    { text: "She carries her own Bible. With underlines. Many.",             from: "the brother who sat next to her in church" },
-    { text: "New converts ask for her by name.",                             from: "from the follow-up book" },
-    { text: "She apologises first, even when it's not her fault.",           from: "her best friend" },
-    { text: "She gives. She doesn't post about giving.",                     from: "a quiet observer" },
-    { text: "She's the friend you call when something good happens.",        from: "everyone, basically" },
-    { text: "Her amen sounds like she means it.",                            from: "the choir" },
-    { text: "She remembers your birthday before you do.",                    from: "you, probably" },
-    { text: "She'll stay late to arrange chairs nobody asked her to arrange.", from: "the head usher" },
-    { text: "She talks about people's strengths in rooms they're not in.",   from: "someone who's been talked about" },
-    { text: "When she corrects you, you don't feel small. You feel told.",   from: "a junior worker" },
-    { text: "She takes correction. She actually takes it.",                  from: "her leader" },
-    { text: "She doesn't hold grudges. Which is annoying when you want to.", from: "a sister with a grudge" },
-    { text: "She has loud laughs. Those are her best ones.",                 from: "her bestie" },
-    { text: "She'll bring food when somebody is sick.",                      from: "the kitchen team" },
-    { text: "Her dressing is sharp without trying to win anything.",         from: "an older sister" },
-    { text: "She sings the songs in church even when no one's watching.",    from: "the row behind her" },
-    { text: "She still calls her mother. Often.",                            from: "her mother (silently proud)" },
-    { text: "She comes early. Every program. Without exception.",            from: "the gate book" },
-    { text: "She works on herself when nobody's watching.",                  from: "a quiet observer" },
-    { text: "She holds doors for people. Small thing. Big thing.",           from: "an aunty leaving service" },
-    { text: "Her mum did a great job. So did Jesus.",                        from: "an aunty in choir" },
-    { text: "When she walks into the room, the room is happy.",              from: "the room" },
-    { text: "She is going to be somebody's favourite doctor.",               from: "and that's me, signing off" },
+  /* ---------- 50 things (specific, real, no attributions) ---------- */
+  const FIFTY = [
+    "She started in FUTO. She has been growing ever since.",
+    "Follow-up secretary. Then assistant. Then secretary again. The girl just doesn't leave.",
+    "She does follow-up like it's actually personal. Because to her, it is.",
+    "She's the reason somebody is still in church.",
+    "She's the reason somebody came back.",
+    "New convert today, your number is in her phone before evening.",
+    "She follows up on people who stopped coming. Yes, you. She tried.",
+    "She serves in places nobody is clapping. She doesn't mind.",
+    "Half the fellowship runs because she's behind it. You'd never know.",
+    "She'll arrange chairs at 5am if that's what is needed.",
+    "She doesn't wait to be seen. She just shows up.",
+    "She has grown. Anybody who knew her two years ago will tell you.",
+    "She has grown in the knowledge of God. Quietly. Steadily. Like roots.",
+    "Her Bible has annotations. With dates.",
+    "She finishes her devotional. (Have you?)",
+    "She prays. Long ones. Real ones.",
+    "Sometimes she's quiet for ten minutes. Leave her alone. She's praying.",
+    "She prays for things you forgot you told her about.",
+    "Her amen is a real amen. Not a polite one.",
+    "Her hallelujah comes from her belly.",
+    "She'll send you a Bible verse on a random Tuesday.",
+    "She puts herself out there. Even when it's awkward. Even when it's hard.",
+    "The shy face is a decoy. The girl is bold.",
+    "She is troublesome. Mildly. Don't push it though.",
+    "She'll argue with you for ten minutes and then send you food.",
+    "Very, very troublesome. In the way you start to enjoy.",
+    "Academics? Serious girl. She doesn't joke with books.",
+    "You'll find her with a textbook when other people are with the phone.",
+    "She remembers people's names. All of them. Don't ask how.",
+    "She greets the security men. By name.",
+    "She greets the older people first. Always.",
+    "She doesn't post her good deeds. She just does them.",
+    "She doesn't talk about people behind their backs. It's almost suspicious.",
+    "She is loyal in a way that's almost old-fashioned.",
+    "Forgive quickly. Forget slowly. She does both.",
+    "She'll tell you the truth in love. Not in tweet.",
+    "Her dressing is sharp without trying to win anything.",
+    "She has a laugh that's too loud for her face. It's her best laugh.",
+    "She'll volunteer for anything you tell her actually matters.",
+    "She's softer than she pretends. And tougher than she looks.",
+    "She doesn't do half things. Whatever she lays her hands on, she finishes.",
+    "She'll cry with you. And not make it weird.",
+    "She apologises first, even when it's not her fault.",
+    "She has a notebook. She actually uses it.",
+    "She listens with her whole face.",
+    "Consistency is her thing. Most underrated compliment.",
+    "She is going to be a doctor. Mark this page.",
+    "And she's adding data analysis to it. Two wings, not one.",
+    "FUTO didn't change her. If anything, she set FUTO straight.",
+    "One day somebody is going to look at her and just say: thank You, Lord, for this one.",
   ];
 
-  /* ---------- Build 30 cards ---------- */
+  /* ---------- Build 50 cards ---------- */
   const cardsEl = document.getElementById('cards');
   if (cardsEl) {
-    THIRTY.forEach((item, i) => {
+    FIFTY.forEach((text, i) => {
       const n = i + 1;
       const card = document.createElement('div');
       card.className = 'card';
@@ -84,17 +104,18 @@
         <div class="card-inner">
           <div class="card-face card-front">
             <div class="card-num">${String(n).padStart(2, '0')}</div>
-            <p class="card-text">${escape(item.text)}</p>
-            <p class="card-tap">tap →</p>
+            <p class="card-text">${escape(text)}</p>
+            <p class="card-tap">tap me</p>
           </div>
           <div class="card-face card-back">
-            <p class="from">${escape(item.from)}</p>
-            <p>♡</p>
+            <p class="back-num">${String(n).padStart(2, '0')}</p>
+            <p class="back-heart">♡</p>
+            <p class="back-tag">of fifty</p>
           </div>
         </div>`;
       card.addEventListener('click', () => {
         card.classList.toggle('flipped');
-        if (Math.random() < 0.18) burstHearts(card);
+        if (Math.random() < 0.22) burstHearts(card);
       });
       cardsEl.appendChild(card);
     });
