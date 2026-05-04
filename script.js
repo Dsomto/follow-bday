@@ -228,57 +228,52 @@
     });
   }
 
-  /* ---------- Music toggle (procedural ambient) ---------- */
+  /* ---------- Music toggle (background track, looped) ---------- */
   const musicBtn = document.getElementById('musicToggle');
-  let audioCtx = null;
-  let musicNodes = null;
+  const bgMusic = document.getElementById('bgMusic');
   let musicOn = false;
 
+  if (bgMusic) {
+    bgMusic.volume = 0.0;
+    bgMusic.loop = true;
+  }
+
+  function fadeMusic(target, ms = 1200) {
+    if (!bgMusic) return;
+    const start = bgMusic.volume;
+    const t0 = performance.now();
+    function step(t) {
+      const k = Math.min(1, (t - t0) / ms);
+      bgMusic.volume = start + (target - start) * k;
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   function startMusic() {
-    if (musicOn) return;
-    try {
-      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-    } catch (e) { return; }
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-
-    const master = audioCtx.createGain();
-    master.gain.value = 0.0;
-    master.connect(audioCtx.destination);
-    master.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 2);
-
-    // Soft pad: a few sine oscillators in a major triad with slow LFO
-    const NOTES = [261.63, 329.63, 392.00, 523.25]; // C, E, G, C
-    const oscs = NOTES.map(freq => {
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = 'sine';
-      o.frequency.value = freq;
-      g.gain.value = 0.16;
-      // slow LFO
-      const lfo = audioCtx.createOscillator();
-      const lfoGain = audioCtx.createGain();
-      lfo.frequency.value = 0.12 + Math.random() * 0.18;
-      lfoGain.gain.value = 0.06;
-      lfo.connect(lfoGain).connect(g.gain);
-      lfo.start();
-      o.connect(g).connect(master);
-      o.start();
-      return { o, g, lfo };
-    });
-
-    musicNodes = { master, oscs };
-    musicOn = true;
-    musicBtn?.classList.add('playing');
+    if (!bgMusic || musicOn) return;
+    const playPromise = bgMusic.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.then(() => {
+        musicOn = true;
+        musicBtn?.classList.add('playing');
+        fadeMusic(0.55, 1800);
+      }).catch(() => {
+        // autoplay blocked — wait for next gesture
+        musicOn = false;
+        musicBtn?.classList.remove('playing');
+      });
+    } else {
+      musicOn = true;
+      musicBtn?.classList.add('playing');
+      fadeMusic(0.55, 1800);
+    }
   }
 
   function stopMusic() {
-    if (!musicNodes) return;
-    const { master, oscs } = musicNodes;
-    master.gain.linearRampToValueAtTime(0.0, audioCtx.currentTime + 0.6);
-    setTimeout(() => {
-      oscs.forEach(({ o, lfo }) => { try { o.stop(); lfo.stop(); } catch (e) {} });
-      musicNodes = null;
-    }, 700);
+    if (!bgMusic || !musicOn) return;
+    fadeMusic(0.0, 600);
+    setTimeout(() => { try { bgMusic.pause(); } catch {} }, 650);
     musicOn = false;
     musicBtn?.classList.remove('playing');
   }
@@ -342,18 +337,26 @@
         voiceAudio.pause();
       }
     });
+    let musicWasOnBeforeVoice = false;
     voiceAudio.addEventListener('play', () => {
       voicePlayIcon?.classList.add('hidden');
       voicePauseIcon?.classList.remove('hidden');
+      if (musicOn) {
+        musicWasOnBeforeVoice = true;
+        fadeMusic(0.08, 400);
+      }
     });
     voiceAudio.addEventListener('pause', () => {
       voicePlayIcon?.classList.remove('hidden');
       voicePauseIcon?.classList.add('hidden');
+      if (musicOn && musicWasOnBeforeVoice) fadeMusic(0.55, 600);
     });
     voiceAudio.addEventListener('ended', () => {
       voicePlayIcon?.classList.remove('hidden');
       voicePauseIcon?.classList.add('hidden');
       voiceFill.style.width = '0%';
+      if (musicOn && musicWasOnBeforeVoice) fadeMusic(0.55, 600);
+      musicWasOnBeforeVoice = false;
     });
     voiceAudio.addEventListener('timeupdate', () => {
       if (!voiceAudio.duration) return;
