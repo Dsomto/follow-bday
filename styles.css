@@ -1294,6 +1294,61 @@ body {
 }
 .advice-token .money-form { margin-top: 16px; }
 
+/* Network selector pills */
+.network-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.network-group legend {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  padding: 0;
+}
+.network-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  position: relative;
+  cursor: pointer;
+}
+.pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.pill span {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(184, 164, 227, 0.4);
+  background: rgba(255, 250, 244, 0.6);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.pill input:checked + span {
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 18px -8px rgba(217, 119, 154, 0.6);
+  transform: translateY(-1px);
+}
+.pill:active span { transform: scale(0.96); }
+
 /* Locked state */
 .gift-locked {
   text-align: center;

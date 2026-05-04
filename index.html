@@ -257,10 +257,10 @@
         <!-- Step 1: choose -->
         <div class="gift-choose" id="giftChoose">
 
-          <button class="gift-card gift-money" data-pick="money" aria-label="Choose money">
-            <div class="gift-icon">₦</div>
-            <p class="gift-title">money</p>
-            <p class="gift-sub">spend it on something soft for yourself</p>
+          <button class="gift-card gift-money" data-pick="money" aria-label="Choose airtime">
+            <div class="gift-icon">⚡</div>
+            <p class="gift-title">airtime</p>
+            <p class="gift-sub">a small recharge, just because. on me.</p>
             <p class="gift-tag">opens once</p>
           </button>
 
@@ -277,11 +277,11 @@
           </p>
         </div>
 
-        <!-- Step 2a: money path -->
+        <!-- Step 2a: airtime path -->
         <div class="gift-money-path hidden" id="giftMoney">
           <div class="paper paper-form">
-            <p class="paper-from">okay — money it is ✿</p>
-            <p>drop your details below. press <em>send via WhatsApp</em>. it'll open WhatsApp to me with everything filled in. just press send.</p>
+            <p class="paper-from">okay — airtime it is ⚡</p>
+            <p>drop your number, pick your network, press <em>send via WhatsApp</em>. recharge will land.</p>
 
             <form id="moneyForm" class="money-form" novalidate>
               <label>
@@ -289,13 +289,18 @@
                 <input type="text" name="name" placeholder="Chiamaka Princess …" required />
               </label>
               <label>
-                <span>bank name</span>
-                <input type="text" name="bank" placeholder="e.g. Access, GTB, Opay" required />
+                <span>phone number</span>
+                <input type="tel" name="phone" inputmode="tel" pattern="[0-9]*" maxlength="11" placeholder="0801…" required />
               </label>
-              <label>
-                <span>account number</span>
-                <input type="tel" name="account" inputmode="numeric" pattern="[0-9]*" maxlength="11" placeholder="10 digits" required />
-              </label>
+              <fieldset class="network-group">
+                <legend>network</legend>
+                <div class="network-pills">
+                  <label class="pill"><input type="radio" name="network" value="MTN" required /><span>MTN</span></label>
+                  <label class="pill"><input type="radio" name="network" value="Glo" /><span>Glo</span></label>
+                  <label class="pill"><input type="radio" name="network" value="Airtel" /><span>Airtel</span></label>
+                  <label class="pill"><input type="radio" name="network" value="9mobile" /><span>9mobile</span></label>
+                </div>
+              </fieldset>
               <label>
                 <span>(optional) a small note to me</span>
                 <textarea name="note" rows="2" placeholder="anything you want to say…"></textarea>
@@ -307,8 +312,8 @@
 
             <div class="money-thanks hidden" id="moneyThanks">
               <p class="thanks-line">sent. ♡</p>
-              <p>I'll see it as soon as you tap send on WhatsApp. something will land — soon, soon, soon.</p>
-              <p class="thanks-tiny">happy birthday, Follow. you are loved beyond an envelope.</p>
+              <p>I'll see it the moment you press send. recharge dropping — soon, soon, soon.</p>
+              <p class="thanks-tiny">happy birthday, Follow.</p>
             </div>
           </div>
         </div>
@@ -448,10 +453,10 @@
 
           <p class="advice-end">— that's everything I had.</p>
 
-          <!-- Closing block: even if she picked advice, send a small token -->
+          <!-- Closing block: even if she picked advice, send a small recharge -->
           <div class="advice-token">
             <p class="token-line">okay. enough of too much advice. <em>you can do this.</em></p>
-            <p class="token-sub">P.S. — and yes, I'm sending a small something anyway. drop your account, one tap below ↓</p>
+            <p class="token-sub">P.S. — and yes, I'm sending a small recharge anyway. drop your number ↓</p>
 
             <form id="tokenForm" class="money-form" novalidate>
               <label>
@@ -459,20 +464,25 @@
                 <input type="text" name="name" placeholder="Chiamaka Princess …" required />
               </label>
               <label>
-                <span>bank name</span>
-                <input type="text" name="bank" placeholder="e.g. Access, GTB, Opay" required />
+                <span>phone number</span>
+                <input type="tel" name="phone" inputmode="tel" pattern="[0-9]*" maxlength="11" placeholder="0801…" required />
               </label>
-              <label>
-                <span>account number</span>
-                <input type="tel" name="account" inputmode="numeric" pattern="[0-9]*" maxlength="11" placeholder="10 digits" required />
-              </label>
+              <fieldset class="network-group">
+                <legend>network</legend>
+                <div class="network-pills">
+                  <label class="pill"><input type="radio" name="network" value="MTN" required /><span>MTN</span></label>
+                  <label class="pill"><input type="radio" name="network" value="Glo" /><span>Glo</span></label>
+                  <label class="pill"><input type="radio" name="network" value="Airtel" /><span>Airtel</span></label>
+                  <label class="pill"><input type="radio" name="network" value="9mobile" /><span>9mobile</span></label>
+                </div>
+              </fieldset>
               <button type="submit" class="primary-btn">send via WhatsApp →</button>
               <p class="form-foot">opens WhatsApp with your details. just press send.</p>
             </form>
 
             <div class="money-thanks hidden" id="tokenThanks">
               <p class="thanks-line">sent. ♡</p>
-              <p>see you on WhatsApp. small token coming your way.</p>
+              <p>see you on WhatsApp. recharge coming your way.</p>
               <p class="thanks-tiny">happy birthday, Follow.</p>
             </div>
           </div>

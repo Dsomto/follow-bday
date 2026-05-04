@@ -835,11 +835,11 @@
     e.preventDefault();
     const fd = new FormData(moneyForm);
     const name = (fd.get('name') || '').toString().trim();
-    const bank = (fd.get('bank') || '').toString().trim();
-    const account = (fd.get('account') || '').toString().trim();
+    const phone = (fd.get('phone') || '').toString().trim();
+    const network = (fd.get('network') || '').toString().trim();
     const note = (fd.get('note') || '').toString().trim();
 
-    if (!name || !bank || !account) {
+    if (!name || !phone || !network) {
       shake(moneyForm);
       return;
     }
@@ -847,20 +847,17 @@
     const message =
 `hi 👋 it's me — Princess.
 
-I picked the envelope on the birthday page 🎁
-
-here are my details:
+I picked the airtime on the birthday page 🎁
 
 • name: ${name}
-• bank: ${bank}
-• account: ${account}${note ? `
+• phone: ${phone}
+• network: ${network}${note ? `
 
 note: ${note}` : ''}
 
 thank you. ♡`;
 
     const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    // Use _blank so it opens WhatsApp directly (and doesn't replace the page)
     window.open(wa, '_blank');
 
     setTimeout(() => {
@@ -878,10 +875,10 @@ thank you. ♡`;
     e.preventDefault();
     const fd = new FormData(tokenForm);
     const name = (fd.get('name') || '').toString().trim();
-    const bank = (fd.get('bank') || '').toString().trim();
-    const account = (fd.get('account') || '').toString().trim();
+    const phone = (fd.get('phone') || '').toString().trim();
+    const network = (fd.get('network') || '').toString().trim();
 
-    if (!name || !bank || !account) {
+    if (!name || !phone || !network) {
       shake(tokenForm);
       return;
     }
@@ -891,11 +888,9 @@ thank you. ♡`;
 
 I picked advice on the birthday page, but you said something would still come 😄
 
-here are my details for the token:
-
 • name: ${name}
-• bank: ${bank}
-• account: ${account}
+• phone: ${phone}
+• network: ${network}
 
 thank you. ♡`;
 
