@@ -827,6 +827,21 @@
     if (s?.choice === 'advice') giftAdvice?.classList.remove('hidden');
   });
 
+  // After airtime send, let her open the advice anyway.
+  document.getElementById('seeAdvice')?.addEventListener('click', () => {
+    giftAdvice?.classList.remove('hidden');
+    giftAdvice?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // "Tap if this made you smile" → quietly pings him on WhatsApp
+  document.getElementById('smileBtn')?.addEventListener('click', () => {
+    const msg = "♡ I saw the page. it made me smile.";
+    const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(wa, '_blank');
+    burstConfetti(180);
+    vibrate([20, 60, 20]);
+  });
+
   /* ---------- Money form -> mailto ---------- */
   const moneyForm = document.getElementById('moneyForm');
   const moneyThanks = document.getElementById('moneyThanks');
