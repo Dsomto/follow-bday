@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#E9DFFB" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Happy Birthday, Chiamaka Princess — a little gift, made with love." />
+  <title>For Follow ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- DESKTOP NOTICE -->
+  <div class="desktop-only" aria-hidden="true">
+    <div class="desktop-card">
+      <div class="phone">
+        <div class="phone-screen">
+          <span class="phone-heart">♡</span>
+          <p>open me on your phone</p>
+        </div>
+      </div>
+      <p class="desktop-note">This is a little gift made for your phone, Follow. Open this link on mobile.</p>
+    </div>
+  </div>
+
+  <!-- MOBILE EXPERIENCE -->
+  <main class="mobile-only" id="app">
+
+    <canvas id="petals" aria-hidden="true"></canvas>
+
+    <!-- Floating UI -->
+    <button id="musicToggle" class="floating-btn music-btn" aria-label="Toggle background music">
+      <span class="music-icon">♪</span>
+    </button>
+
+    <button id="heartButton" class="floating-btn heart-btn" aria-label="Send a heart">
+      <span>♡</span>
+    </button>
+
+    <!-- Tap-to-enter overlay -->
+    <section id="enter" class="enter">
+      <div class="enter-inner">
+        <div class="envelope" id="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-body">
+            <span class="envelope-seal">♡</span>
+          </div>
+        </div>
+        <h1 class="enter-title">A letter for you,<br/><em>Chiamaka Princess</em></h1>
+        <p class="enter-sub">tap the envelope to open</p>
+        <p class="enter-hint">(turn your sound on, gently)</p>
+      </div>
+    </section>
+
+    <!-- HERO -->
+    <section id="hero" class="section hero">
+      <div class="hero-frame">
+        <div class="photo-frame photo-hero" data-photo="hero">
+          <img src="assets/photos/hero.jpg" alt="Chiamaka Princess" onerror="this.classList.add('missing')" />
+          <div class="photo-fallback">your photo here</div>
+        </div>
+        <div class="sparkle s1"></div>
+        <div class="sparkle s2"></div>
+        <div class="sparkle s3"></div>
+      </div>
+      <p class="kicker">today, the heavens noticed</p>
+      <h1 class="hero-title">Happy Birthday,<br/><span class="hero-name">Chiamaka Princess</span></h1>
+      <p class="hero-tag">they call you <span class="ink">Follow</span> — and we follow because <em>you</em> follow Him.</p>
+      <div class="scroll-hint" aria-hidden="true">
+        <span>keep going</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- NOTE FROM ME -->
+    <section id="note" class="section note reveal">
+      <div class="paper">
+        <p class="paper-from">a small note —</p>
+        <p>
+          Princess, I know we have not known each other long.
+          Honestly, that is part of why I'm doing this.
+          You don't get this far inside someone's notice in a few weeks
+          unless something about you is loud — quietly loud, the good kind.
+        </p>
+        <p>
+          So before anything else, I want you to know:
+          you are easy to root for. You are easier to celebrate.
+          And the people who get to call you their friend are quietly lucky,
+          even when they don't say it out loud.
+        </p>
+        <p>
+          Today, let me say it out loud.
+        </p>
+        <p class="signoff">— happy birthday, Follow</p>
+      </div>
+    </section>
+
+    <!-- 30 THINGS -->
+    <section id="thirty" class="section thirty reveal">
+      <header class="section-head">
+        <p class="kicker">chapter one</p>
+        <h2>30 things people say about you</h2>
+        <p class="subhead">tap any card to flip it. some have a name on the back.</p>
+      </header>
+
+      <div class="cards" id="cards"></div>
+
+      <p class="cards-foot">…and there are more. there are always more.</p>
+    </section>
+
+    <!-- BIBLE VERSE -->
+    <section id="verse" class="section verse reveal">
+      <div class="verse-frame">
+        <p class="verse-text">
+          “She is clothed with strength and dignity;<br/>
+          she can laugh at the days to come.”
+        </p>
+        <p class="verse-ref">Proverbs 31:25</p>
+        <button class="ghost-btn" id="prayerBtn">a small prayer for you →</button>
+        <div class="prayer hidden" id="prayer">
+          <p>
+            Father, thank You for Chiamaka. For the heart You have softened, the
+            faith You have grown in her, the lives You have placed in her hands.
+            This new year, give her quiet rest, loud joy, deep peace, and the
+            kind of laughter that surprises her. Let everything she touches
+            this year carry the fragrance of heaven. In Jesus' name —
+            <span class="amen">amen.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section gallery reveal">
+      <header class="section-head">
+        <p class="kicker">chapter two</p>
+        <h2>moments</h2>
+        <p class="subhead">swipe →</p>
+      </header>
+      <div class="gallery-strip" id="galleryStrip"></div>
+    </section>
+
+    <!-- ============== THE GIFT (one-time choice) ============== -->
+    <section id="gift" class="section gift reveal">
+      <header class="section-head">
+        <p class="kicker">chapter three</p>
+        <h2>now — a small gift</h2>
+        <p class="subhead">but you can only open one. <em>choose carefully.</em></p>
+      </header>
+
+      <div class="gift-stage" id="giftStage">
+
+        <!-- Step 1: choose -->
+        <div class="gift-choose" id="giftChoose">
+
+          <button class="gift-card gift-money" data-pick="money" aria-label="Choose money">
+            <div class="gift-icon">₦</div>
+            <p class="gift-title">money</p>
+            <p class="gift-sub">spend it on something soft for yourself</p>
+            <p class="gift-tag">opens once</p>
+          </button>
+
+          <button class="gift-card gift-advice" data-pick="advice" aria-label="Choose advice">
+            <div class="gift-icon">✿</div>
+            <p class="gift-title">advice</p>
+            <p class="gift-sub">things I wish someone had told me when I was you</p>
+            <p class="gift-tag">opens once</p>
+          </button>
+
+          <p class="gift-note">
+            most people quietly regret picking the first one.<br/>
+            <em>but it's your day. choose freely.</em>
+          </p>
+        </div>
+
+        <!-- Step 2a: money path -->
+        <div class="gift-money-path hidden" id="giftMoney">
+          <div class="paper paper-form">
+            <p class="paper-from">okay — money it is ✿</p>
+            <p>drop your details below. press <em>send</em>. it'll open your mail to me, and I take it from there.</p>
+
+            <form id="moneyForm" class="money-form" novalidate>
+              <label>
+                <span>your full name</span>
+                <input type="text" name="name" placeholder="Chiamaka Princess …" required />
+              </label>
+              <label>
+                <span>bank name</span>
+                <input type="text" name="bank" placeholder="e.g. Access, GTB, Opay" required />
+              </label>
+              <label>
+                <span>account number</span>
+                <input type="tel" name="account" inputmode="numeric" pattern="[0-9]*" maxlength="11" placeholder="10 digits" required />
+              </label>
+              <label>
+                <span>WhatsApp number</span>
+                <input type="tel" name="whatsapp" inputmode="tel" placeholder="0801…" required />
+              </label>
+              <label>
+                <span>(optional) a small note to me</span>
+                <textarea name="note" rows="2" placeholder="anything you want to say…"></textarea>
+              </label>
+
+              <button type="submit" class="primary-btn">send to him →</button>
+              <p class="form-foot">this opens your email app. just press send.</p>
+            </form>
+
+            <div class="money-thanks hidden" id="moneyThanks">
+              <p class="thanks-line">sent. ♡</p>
+              <p>I'll see it when I check my mail. something will land — soon, soon, soon.</p>
+              <p class="thanks-tiny">happy birthday, Follow. you are loved beyond an envelope.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2b: advice path -->
+        <div class="gift-advice-path hidden" id="giftAdvice">
+          <p class="advice-intro">good. you picked the one money can't buy.<br/>here, then —</p>
+
+          <details class="advice-card" open>
+            <summary>
+              <span class="adv-num">i</span>
+              <span class="adv-title">on becoming</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>You are still becoming. Don't rush the version of you God is still writing. The girl you'll be in five years is built in private — in mornings nobody sees, in books nobody knows you read, in prayers nobody hears.</p>
+              <p>Build her quietly. Let people meet her by surprise.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">ii</span>
+              <span class="adv-title">on love &amp; marriage</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Don't pick a man who makes you small to feel big. Pick the one who would walk into a room and look for you. The one who treats your faith like a partner, not a competitor.</p>
+              <p>Wait well. Waiting is not wasted time — it is preparation. Use it. Heal in it. Become the woman the right man will struggle to deserve.</p>
+              <p>And listen — God is not slow. He is on time. He has never been late, even when it felt like it. Trust the season.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">iii</span>
+              <span class="adv-title">on beauty</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>You are very, very beautiful. But your face is not your gift — it is your <em>frame</em>. The gift is what's inside it: your kindness, your faith, your laugh, the way you make people feel held.</p>
+              <p>Take care of your body anyway. Drink water. Sleep early when you can. Cream your skin. Eat real food. Take pictures. Wear the dress. Don't save your best self for "one day."</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">iv</span>
+              <span class="adv-title">on this season — build</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Set goals you can write down. Then go beyond them. Don't aim at people's expectations — aim at God's. People will be surprised. He won't.</p>
+              <p>Pick one skill this year and get scary good at it. Pick one fear and walk into it. Pick one habit you've been hiding from and break it.</p>
+              <p>This season is your foundation. Pour it deep, even when nothing seems to be standing on it yet. Buildings come.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">v</span>
+              <span class="adv-title">on people you love</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Call your mother today. Call your father. Call the friend who used to text every day and now doesn't. People drift not because of malice but because of silence. Be the one who breaks the silence.</p>
+              <p>Tell people you love that you love them, while they can still hear you. Out loud. With their full name.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">vi</span>
+              <span class="adv-title">on money (since you didn't pick it)</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Make it. Don't worship it. Money is a poor master and a useful servant — keep it on that side of the line.</p>
+              <p>Save before you spend. Give before you save. Tithe before you give. In that order, somehow it always multiplies.</p>
+              <p>And if anyone ever offers you advice or money — take the advice. You already know.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">vii</span>
+              <span class="adv-title">on follow-up — the work you do</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>What you do for the new converts is not "small." Heaven keeps a different kind of ledger than the one we keep down here. The names you remember, the texts you send, the people you check on — those things echo.</p>
+              <p>Don't get tired. And when you do get tired — rest, then come back. The harvest is real, and you are good at this.</p>
+            </div>
+          </details>
+
+          <details class="advice-card">
+            <summary>
+              <span class="adv-num">viii</span>
+              <span class="adv-title">one last thing</span>
+              <span class="adv-arrow">+</span>
+            </summary>
+            <div class="advice-body">
+              <p>Be soft. Stay soft. The world will spend a long time trying to harden you and you must outlast it. Soft is not weak. Soft is brave.</p>
+              <p>Laugh easily. Forgive quickly. Pray honestly. Love deeply. Sleep well.</p>
+              <p>And remember — the people who love you, love you on purpose. That includes me.</p>
+            </div>
+          </details>
+
+          <p class="advice-end">— that's everything I had. happy birthday, Follow ♡</p>
+        </div>
+
+        <!-- Locked state (when she returns) -->
+        <div class="gift-locked hidden" id="giftLocked">
+          <p class="locked-icon">✿</p>
+          <p>you already opened your gift.</p>
+          <p class="locked-sub">it can only happen once. <button class="link-btn" id="seeAgain">see what I picked again →</button></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOW THE CANDLES -->
+    <section id="candles" class="section candles reveal">
+      <header class="section-head">
+        <p class="kicker">chapter four</p>
+        <h2>make a wish</h2>
+        <p class="subhead">tap each flame to blow it out</p>
+      </header>
+
+      <div class="cake">
+        <div class="cake-top">
+          <div class="candle" data-i="1"><div class="flame"></div><div class="stick"></div></div>
+          <div class="candle" data-i="2"><div class="flame"></div><div class="stick"></div></div>
+          <div class="candle" data-i="3"><div class="flame"></div><div class="stick"></div></div>
+          <div class="candle" data-i="4"><div class="flame"></div><div class="stick"></div></div>
+          <div class="candle" data-i="5"><div class="flame"></div><div class="stick"></div></div>
+        </div>
+        <div class="cake-tier tier-2"></div>
+        <div class="cake-tier tier-1"></div>
+        <div class="cake-plate"></div>
+      </div>
+
+      <div class="wish hidden" id="wishMessage">
+        <p>okay. wish made.</p>
+        <p class="wish-sub">now go and live like it's already on its way to you. <br/>(because it is.)</p>
+      </div>
+    </section>
+
+    <!-- VOICE NOTE -->
+    <section id="voice" class="section voice reveal">
+      <header class="section-head">
+        <p class="kicker">a voice note</p>
+        <h2>press play, Follow</h2>
+        <p class="subhead">my actual voice. press the button.</p>
+      </header>
+
+      <div class="voice-card">
+        <button id="voicePlay" class="voice-btn" aria-label="Play voice note">
+          <span class="voice-play">▶</span>
+          <span class="voice-pause hidden">❚❚</span>
+        </button>
+        <div class="voice-meta">
+          <div class="voice-line">
+            <div class="voice-bar"><div class="voice-fill" id="voiceFill"></div></div>
+          </div>
+          <p class="voice-name">a message · for you</p>
+        </div>
+        <audio id="voiceAudio" preload="metadata" src="assets/audio/voice.m4a"></audio>
+      </div>
+      <p class="voice-foot">if it's silent, the recording is on its way — drop in <code>assets/audio/voice.m4a</code></p>
+    </section>
+
+    <!-- FINAL BLESSING -->
+    <section id="blessing" class="section blessing reveal">
+      <div class="blessing-frame">
+        <p class="kicker">last page</p>
+        <h2>go gently into your year</h2>
+        <p>
+          May this year find you laughing at things that used to make you cry.
+          May the people you have followed up on rise and call you blessed.
+          May your heart stay tender. May your spine stay straight.
+          May you be loved well, and know it.
+        </p>
+        <p class="signoff">happy birthday, Follow ♡</p>
+        <button class="secret-btn" id="secretBtn">tap me 7 times</button>
+        <div class="secret hidden" id="secretMessage">
+          <p>okay, the secret —</p>
+          <p>I see you. <br>I really do. <br>and so does He.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>made with love · for Chiamaka Princess</p>
+      <p class="tiny">pull down for a surprise ↓</p>
+    </footer>
+
+  </main>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div id="pullEgg" class="pull-egg">
+    <p>♡ you are loved ♡</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
