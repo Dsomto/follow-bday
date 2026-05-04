@@ -39,38 +39,38 @@
     }
   }
 
-  /* ---------- 30 things ---------- */
+  /* ---------- 30 things (concrete, human, things people actually say) ---------- */
   const THIRTY = [
-    { text: "She's so prayerful — like, deeply.", from: "an aunty in church" },
-    { text: "There's a softness in her that doesn't break under pressure.", from: "a sister friend" },
-    { text: "She actually listens. Not the polite kind. The real kind.", from: "a brother" },
-    { text: "Virtuous is the word. People throw it around — she earns it.", from: "her pastor's wife (probably)" },
-    { text: "She makes new converts feel safe. That's a gift.", from: "from the follow-up team" },
-    { text: "Her smile arrives a second before she does, somehow.", from: "from me" },
-    { text: "Faithful in small things. People notice.", from: "Luke 16:10, basically" },
-    { text: "She doesn't gossip. In a world like ours, that's rare.", from: "an honest friend" },
-    { text: "She remembers the little things — names, dates, how you take your tea.", from: "someone she's checked on" },
-    { text: "She gives without keeping score.", from: "from someone who watches quietly" },
-    { text: "Servant-hearted. First to help, last to leave.", from: "from the church youth" },
-    { text: "Her faith is contagious in the best way.", from: "a friend" },
-    { text: "She walks in modesty without making it heavy.", from: "an older sister" },
-    { text: "She corrects gently. Heals more than it hurts.", from: "from a junior" },
-    { text: "She handles correction without crumbling.", from: "from a leader" },
-    { text: "She's a builder, not a critic.", from: "from someone she's encouraged" },
-    { text: "She makes ordinary days feel sacred.", from: "from me" },
-    { text: "She reads her Bible for herself, not for show.", from: "her flatmate, probably" },
-    { text: "When she calls God Daddy — she means it.", from: "anyone who's heard her pray" },
-    { text: "She's loyal in a way that's almost old-fashioned.", from: "an old friend" },
-    { text: "She carries people without making them feel carried.", from: "from a new convert" },
-    { text: "There's wisdom in her that's older than her age.", from: "from her pastor" },
-    { text: "She forgives faster than most people can offend.", from: "a brother" },
-    { text: "She's funny when she's not even trying.", from: "from a close friend" },
-    { text: "She shows up. Every single time.", from: "from the team" },
-    { text: "She's working on herself, quietly. We see it.", from: "from me" },
-    { text: "She's the daughter every mother prays for.", from: "an aunty" },
-    { text: "She glows. There's no other word for it.", from: "from anyone with eyes" },
-    { text: "God's hand is on her life. You can feel it in the room.", from: "from her pastor's wife" },
-    { text: "Heaven smiles when she walks in.", from: "and that's me, signing off" },
+    { text: "She prays. Like, the long ones.",                              from: "your roommate" },
+    { text: "She greets the gateman before she greets anybody else.",        from: "auntie Ngozi" },
+    { text: "She'll text you to ask if you've eaten. Twice.",                from: "your sister" },
+    { text: "She remembers what you told her last month.",                   from: "a friend you forgot you told" },
+    { text: "She doesn't talk about people behind their backs. It's rare.",  from: "an honest friend" },
+    { text: "She listens with her whole face.",                              from: "the youth pastor" },
+    { text: "She'll send a Bible verse on a random Tuesday.",                from: "the WhatsApp group" },
+    { text: "She carries her own Bible. With underlines. Many.",             from: "the brother who sat next to her in church" },
+    { text: "New converts ask for her by name.",                             from: "from the follow-up book" },
+    { text: "She apologises first, even when it's not her fault.",           from: "her best friend" },
+    { text: "She gives. She doesn't post about giving.",                     from: "a quiet observer" },
+    { text: "She's the friend you call when something good happens.",        from: "everyone, basically" },
+    { text: "Her amen sounds like she means it.",                            from: "the choir" },
+    { text: "She remembers your birthday before you do.",                    from: "you, probably" },
+    { text: "She'll stay late to arrange chairs nobody asked her to arrange.", from: "the head usher" },
+    { text: "She talks about people's strengths in rooms they're not in.",   from: "someone who's been talked about" },
+    { text: "When she corrects you, you don't feel small. You feel told.",   from: "a junior worker" },
+    { text: "She takes correction. She actually takes it.",                  from: "her leader" },
+    { text: "She doesn't hold grudges. Which is annoying when you want to.", from: "a sister with a grudge" },
+    { text: "She has loud laughs. Those are her best ones.",                 from: "her bestie" },
+    { text: "She'll bring food when somebody is sick.",                      from: "the kitchen team" },
+    { text: "Her dressing is sharp without trying to win anything.",         from: "an older sister" },
+    { text: "She sings the songs in church even when no one's watching.",    from: "the row behind her" },
+    { text: "She still calls her mother. Often.",                            from: "her mother (silently proud)" },
+    { text: "She comes early. Every program. Without exception.",            from: "the gate book" },
+    { text: "She works on herself when nobody's watching.",                  from: "a quiet observer" },
+    { text: "She holds doors for people. Small thing. Big thing.",           from: "an aunty leaving service" },
+    { text: "Her mum did a great job. So did Jesus.",                        from: "an aunty in choir" },
+    { text: "When she walks into the room, the room is happy.",              from: "the room" },
+    { text: "She is going to be somebody's favourite doctor.",               from: "and that's me, signing off" },
   ];
 
   /* ---------- Build 30 cards ---------- */
@@ -125,15 +125,71 @@
     });
   }
 
-  /* ---------- Today's date stamp ---------- */
+  /* ---------- Today's date stamp (typewriter reveal) ---------- */
   const todayDateEl = document.getElementById('todayDate');
   if (todayDateEl) {
     const d = new Date();
     const fmt = d.toLocaleDateString('en-GB', {
       weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-    });
-    todayDateEl.textContent = fmt.toLowerCase();
+    }).toLowerCase();
+    todayDateEl.textContent = '';
+    // Reveal letter-by-letter when the section comes into view
+    const startTyping = () => {
+      let i = 0;
+      const tick = () => {
+        if (i <= fmt.length) {
+          todayDateEl.textContent = fmt.slice(0, i) + (i < fmt.length ? '▍' : '');
+          i++;
+          setTimeout(tick, 38);
+        }
+      };
+      tick();
+    };
+    const obs = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (e.isIntersecting) {
+          startTyping();
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    const todaySection = document.getElementById('today');
+    if (todaySection) obs.observe(todaySection);
   }
+
+  /* ---------- Hero name letter-by-letter pop ---------- */
+  const heroNameEl = document.getElementById('heroName');
+  if (heroNameEl) {
+    const words = heroNameEl.querySelectorAll('.hn-word');
+    words.forEach((w, wi) => {
+      const text = w.textContent;
+      w.textContent = '';
+      // wrap each letter in a span; preserve gradient by keeping word's class
+      [...text].forEach((ch, ci) => {
+        const span = document.createElement('span');
+        span.className = 'hn-letter';
+        span.textContent = ch;
+        span.style.animationDelay = `${0.05 * (wi * 9 + ci)}s`;
+        // make individual letters share the gradient color via inheritance
+        span.style.background = 'inherit';
+        span.style.webkitBackgroundClip = 'text';
+        span.style.backgroundClip = 'text';
+        span.style.color = 'transparent';
+        w.appendChild(span);
+      });
+    });
+  }
+
+  /* ---------- Scroll progress gold line ---------- */
+  const progressEl = document.getElementById('scrollProgress');
+  function updateProgress() {
+    if (!progressEl) return;
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = Math.max(0, Math.min(1, window.scrollY / Math.max(1, h)));
+    progressEl.style.width = (pct * 100) + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
 
   /* ---------- Enter overlay ---------- */
   const enterEl = document.getElementById('enter');
@@ -165,6 +221,8 @@
     sizeCanvas(petalCanvas);
     sizeCanvas(confettiCanvas);
     sizeCanvas(balloonCanvas);
+    sizeCanvas(heartsCanvas);
+    sizeCanvas(sparkleCanvas);
   });
 
   function spawnPetal() {
@@ -296,6 +354,109 @@
     requestAnimationFrame(balloonLoop);
   }
   balloonLoop();
+
+  /* ---------- Floating hearts (occasional, slow drift up) ---------- */
+  const heartsCanvas = document.getElementById('hearts');
+  const heartsCtx = heartsCanvas?.getContext('2d');
+  sizeCanvas(heartsCanvas);
+  let hearts = [];
+  function spawnHeart() {
+    return {
+      x: Math.random() * heartsCanvas.width,
+      y: heartsCanvas.height + 20 * devicePixelRatio,
+      r: (10 + Math.random() * 8) * devicePixelRatio,
+      vy: (0.4 + Math.random() * 0.6) * devicePixelRatio,
+      sway: 14 * devicePixelRatio + Math.random() * 22 * devicePixelRatio,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.018 + Math.random() * 0.015,
+      baseX: 0,
+      hue: Math.random() < 0.5 ? '#E89AB1' : '#F8B5C7',
+      alpha: 0.55 + Math.random() * 0.3,
+    };
+  }
+  function drawHeart(ctx, x, y, r, color, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x, y - r * 0.2);
+    ctx.bezierCurveTo(x + r, y - r, x + r, y + r * 0.4, x, y + r);
+    ctx.bezierCurveTo(x - r, y + r * 0.4, x - r, y - r, x, y - r * 0.2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+  function heartsLoop() {
+    if (!heartsCtx) return;
+    heartsCtx.clearRect(0, 0, heartsCanvas.width, heartsCanvas.height);
+    if (hearts.length < 5 && Math.random() < 0.008) {
+      const h = spawnHeart();
+      h.baseX = h.x;
+      hearts.push(h);
+    }
+    hearts = hearts.filter(h => h.y > -40);
+    hearts.forEach(h => {
+      h.y -= h.vy;
+      h.phase += h.speed;
+      h.x = h.baseX + Math.sin(h.phase) * h.sway;
+      drawHeart(heartsCtx, h.x, h.y, h.r, h.hue, h.alpha);
+    });
+    requestAnimationFrame(heartsLoop);
+  }
+  heartsLoop();
+
+  /* ---------- Tap-anywhere sparkle ---------- */
+  const sparkleCanvas = document.getElementById('sparkles');
+  const sparkleCtx = sparkleCanvas?.getContext('2d');
+  sizeCanvas(sparkleCanvas);
+  let sparkles = [];
+  const SPARK_COLORS = ['#D9779A', '#A48EDC', '#F59A6E', '#C29852', '#FFFAF4'];
+
+  function emitSparkle(x, y) {
+    const cx = x * devicePixelRatio;
+    const cy = y * devicePixelRatio;
+    for (let i = 0; i < 8; i++) {
+      const a = (Math.PI * 2 * i) / 8 + Math.random() * 0.6;
+      const v = (1.5 + Math.random() * 2.5) * devicePixelRatio;
+      sparkles.push({
+        x: cx, y: cy,
+        vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1.2 * devicePixelRatio,
+        r: (1.5 + Math.random() * 2) * devicePixelRatio,
+        color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
+        life: 0, max: 32 + Math.random() * 18,
+      });
+    }
+  }
+
+  function sparkleLoop() {
+    if (!sparkleCtx) return;
+    sparkleCtx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
+    sparkles = sparkles.filter(s => s.life < s.max);
+    sparkles.forEach(s => {
+      s.life++;
+      s.vy += 0.06 * devicePixelRatio;
+      s.x += s.vx; s.y += s.vy;
+      const alpha = 1 - s.life / s.max;
+      sparkleCtx.save();
+      sparkleCtx.globalAlpha = alpha;
+      sparkleCtx.fillStyle = s.color;
+      sparkleCtx.beginPath();
+      sparkleCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      sparkleCtx.fill();
+      sparkleCtx.restore();
+    });
+    requestAnimationFrame(sparkleLoop);
+  }
+  sparkleLoop();
+
+  // Listen for taps anywhere on the page (but not on form inputs)
+  document.addEventListener('pointerdown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (['input', 'textarea', 'select', 'button'].includes(tag)) return;
+    // skip taps inside any form field area
+    if (e.target.closest('input, textarea, select')) return;
+    emitSparkle(e.clientX, e.clientY);
+  }, { passive: true });
 
   /* ---------- Confetti ---------- */
   const confettiCanvas = document.getElementById('confetti');
@@ -449,56 +610,6 @@
       }
     });
   });
-
-  /* ---------- Voice note ---------- */
-  const voiceBtn = document.getElementById('voicePlay');
-  const voiceAudio = document.getElementById('voiceAudio');
-  const voiceFill = document.getElementById('voiceFill');
-  const voicePlayIcon = voiceBtn?.querySelector('.voice-play');
-  const voicePauseIcon = voiceBtn?.querySelector('.voice-pause');
-
-  if (voiceBtn && voiceAudio) {
-    voiceBtn.addEventListener('click', () => {
-      if (voiceAudio.paused) {
-        voiceAudio.play().catch(() => {
-          // Audio file likely missing — show a friendly indicator
-          voiceFill.style.background = 'var(--ink-faint)';
-          voiceFill.style.width = '100%';
-          setTimeout(() => {
-            voiceFill.style.width = '0%';
-            voiceFill.style.background = '';
-          }, 1200);
-        });
-      } else {
-        voiceAudio.pause();
-      }
-    });
-    let musicWasOnBeforeVoice = false;
-    voiceAudio.addEventListener('play', () => {
-      voicePlayIcon?.classList.add('hidden');
-      voicePauseIcon?.classList.remove('hidden');
-      if (musicOn) {
-        musicWasOnBeforeVoice = true;
-        fadeMusic(0.08, 400);
-      }
-    });
-    voiceAudio.addEventListener('pause', () => {
-      voicePlayIcon?.classList.remove('hidden');
-      voicePauseIcon?.classList.add('hidden');
-      if (musicOn && musicWasOnBeforeVoice) fadeMusic(0.55, 600);
-    });
-    voiceAudio.addEventListener('ended', () => {
-      voicePlayIcon?.classList.remove('hidden');
-      voicePauseIcon?.classList.add('hidden');
-      voiceFill.style.width = '0%';
-      if (musicOn && musicWasOnBeforeVoice) fadeMusic(0.55, 600);
-      musicWasOnBeforeVoice = false;
-    });
-    voiceAudio.addEventListener('timeupdate', () => {
-      if (!voiceAudio.duration) return;
-      voiceFill.style.width = (voiceAudio.currentTime / voiceAudio.duration * 100) + '%';
-    });
-  }
 
   /* ---------- Hug button ---------- */
   const hugBtn = document.getElementById('hugBtn');

@@ -1697,6 +1697,212 @@ body {
 /* ===== Make floating btns slightly nicer ===== */
 .heart-btn { font-size: 24px; }
 
+/* ===== Scroll progress (gold line at top) ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--accent) 60%, transparent);
+  z-index: 999;
+  pointer-events: none;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(217, 119, 154, 0.5);
+}
+
+/* ===== Filigree section dividers (SVG-style with ::before/after) ===== */
+.filigree {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: -10px auto 30px;
+  max-width: 280px;
+  padding: 0 24px;
+  color: var(--gold);
+  opacity: 0.75;
+}
+.filigree::before,
+.filigree::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+}
+.filigree-mark {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: 0.2em;
+  text-shadow: 0 2px 6px rgba(217, 119, 154, 0.2);
+}
+
+/* ===== Ornamental gold corners on key cards ===== */
+.gold-corners {
+  position: relative;
+}
+.gold-corners::before,
+.gold-corners::after,
+.gold-corners > .gc-tl,
+.gold-corners > .gc-br {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.65;
+  pointer-events: none;
+}
+.gold-corners::before { /* top-right */
+  top: 10px; right: 10px;
+  border-width: 1.5px 1.5px 0 0;
+  border-top-right-radius: 4px;
+}
+.gold-corners::after { /* bottom-left */
+  bottom: 10px; left: 10px;
+  border-width: 0 0 1.5px 1.5px;
+  border-bottom-left-radius: 4px;
+}
+.gold-corners .gc-tl {
+  top: 10px; left: 10px;
+  border-width: 1.5px 0 0 1.5px;
+  border-top-left-radius: 4px;
+}
+.gold-corners .gc-br {
+  bottom: 10px; right: 10px;
+  border-width: 0 1.5px 1.5px 0;
+  border-bottom-right-radius: 4px;
+}
+
+/* ===== Hero photo Ken Burns ===== */
+.photo-hero img {
+  animation: kenBurns 18s ease-in-out infinite alternate;
+}
+@keyframes kenBurns {
+  0%   { transform: scale(1)    translate(0, 0); }
+  50%  { transform: scale(1.08) translate(-2%, -1.5%); }
+  100% { transform: scale(1.05) translate(2%, 1%); }
+}
+
+/* hero shimmer pass over photo (subtle gleam) */
+.photo-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+    transparent 30%,
+    rgba(255, 250, 244, 0.45) 48%,
+    transparent 66%);
+  background-size: 280% 100%;
+  background-position: -100% 0;
+  animation: photoGleam 5s ease-in-out infinite;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+@keyframes photoGleam {
+  0%, 60% { background-position: -100% 0; }
+  100%    { background-position: 200% 0; }
+}
+
+/* ===== Tap sparkle layer (canvas) ===== */
+#sparkles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ===== Floating hearts (canvas) ===== */
+#hearts {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== Numbers (a small year-in-numbers strip under today) ===== */
+.numbers-strip {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(217, 119, 154, 0.3);
+}
+.num-cell {
+  text-align: center;
+  flex: 1;
+}
+.num-big {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+}
+.num-cell:nth-child(2) .num-big { color: var(--accent-3); }
+.num-cell:nth-child(3) .num-big { color: var(--gold); }
+.num-label {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ===== Card flip — slightly more luxurious ===== */
+.card-front, .card-back {
+  border-radius: 22px;
+}
+.card-front {
+  background: linear-gradient(180deg, #FFFAF4 0%, #FFF5EE 100%);
+  box-shadow: 0 14px 36px -16px rgba(160, 140, 200, 0.65),
+              inset 0 1px 0 rgba(255, 250, 244, 0.9);
+}
+.card-front::before {
+  content: "";
+  position: absolute;
+  top: 8px; right: 8px; width: 10px; height: 10px;
+  border-top: 1px solid var(--gold);
+  border-right: 1px solid var(--gold);
+  opacity: 0.55;
+}
+.card-front::after {
+  content: "";
+  position: absolute;
+  bottom: 8px; left: 8px; width: 10px; height: 10px;
+  border-bottom: 1px solid var(--gold);
+  border-left: 1px solid var(--gold);
+  opacity: 0.55;
+}
+
+/* ===== Hero name — letter-by-letter pop ===== */
+.hn-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px) rotate(-4deg);
+  animation: letterPop 0.45s cubic-bezier(0.4, 0.6, 0.2, 1.4) forwards;
+}
+@keyframes letterPop {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* ===== Refine ribbon a bit ===== */
+.ribbon { animation: ribbonGlow 3s ease-in-out infinite alternate; }
+@keyframes ribbonGlow {
+  from { box-shadow: 0 4px 14px -4px rgba(217, 119, 154, 0.25); }
+  to   { box-shadow: 0 6px 22px -2px rgba(217, 119, 154, 0.55); }
+}
+
 /* small screens */
 @media (max-width: 360px) {
   .hero-title { font-size: 32px; }
@@ -1712,4 +1918,5 @@ body {
   .today-line { font-size: 26px; }
   .blush-line { font-size: 28px; }
   .polaroid { flex: 0 0 80%; }
+  .num-big { font-size: 24px; }
 }

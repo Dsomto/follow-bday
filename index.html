@@ -33,6 +33,11 @@
 
     <canvas id="petals" aria-hidden="true"></canvas>
     <canvas id="balloons" aria-hidden="true"></canvas>
+    <canvas id="hearts" aria-hidden="true"></canvas>
+    <canvas id="sparkles" aria-hidden="true"></canvas>
+
+    <!-- Top scroll progress bar -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
     <!-- pinned ribbon (always-on) -->
     <div class="ribbon" aria-hidden="true">
@@ -93,10 +98,28 @@
 
     <!-- TODAY IS YOUR DAY -->
     <section id="today" class="section today reveal">
-      <div class="today-card">
+      <div class="filigree" aria-hidden="true">
+        <span class="filigree-mark">✦ ✿ ✦</span>
+      </div>
+      <div class="today-card gold-corners">
+        <span class="gc-tl"></span><span class="gc-br"></span>
         <p class="today-kicker">today —</p>
         <h2 class="today-line">the world quietly stops <br/>to celebrate <em>you</em>.</h2>
         <p class="today-date" id="todayDate"></p>
+        <div class="numbers-strip">
+          <div class="num-cell">
+            <span class="num-big">1</span>
+            <span class="num-label">birthday girl</span>
+          </div>
+          <div class="num-cell">
+            <span class="num-big">30</span>
+            <span class="num-label">things people say</span>
+          </div>
+          <div class="num-cell">
+            <span class="num-big">10</span>
+            <span class="num-label">wishes for you</span>
+          </div>
+        </div>
         <div class="today-bouquet" aria-hidden="true">
           <span class="bloom b1">✿</span>
           <span class="bloom b2">❀</span>
@@ -152,7 +175,11 @@
 
     <!-- BLUSH -->
     <section id="blush" class="section blush reveal">
-      <div class="blush-frame">
+      <div class="filigree" aria-hidden="true">
+        <span class="filigree-mark">✿ ✦ ✿</span>
+      </div>
+      <div class="blush-frame gold-corners">
+        <span class="gc-tl"></span><span class="gc-br"></span>
         <p class="kicker">honestly —</p>
         <h2 class="blush-line">you are <em>so</em> easy to admire.</h2>
         <p class="blush-body">
@@ -464,33 +491,13 @@
       </div>
     </section>
 
-    <!-- VOICE NOTE -->
-    <section id="voice" class="section voice reveal">
-      <header class="section-head">
-        <p class="kicker">a voice note</p>
-        <h2>press play, Follow</h2>
-        <p class="subhead">my actual voice. press the button.</p>
-      </header>
-
-      <div class="voice-card">
-        <button id="voicePlay" class="voice-btn" aria-label="Play voice note">
-          <span class="voice-play">▶</span>
-          <span class="voice-pause hidden">❚❚</span>
-        </button>
-        <div class="voice-meta">
-          <div class="voice-line">
-            <div class="voice-bar"><div class="voice-fill" id="voiceFill"></div></div>
-          </div>
-          <p class="voice-name">a message · for you</p>
-        </div>
-        <audio id="voiceAudio" preload="metadata" src="assets/audio/voice.m4a"></audio>
-      </div>
-      <p class="voice-foot">if it's silent, the recording is on its way — drop in <code>assets/audio/voice.m4a</code></p>
-    </section>
-
     <!-- FINAL BLESSING -->
     <section id="blessing" class="section blessing reveal">
-      <div class="blessing-frame">
+      <div class="filigree" aria-hidden="true">
+        <span class="filigree-mark">✦ ❀ ✦</span>
+      </div>
+      <div class="blessing-frame gold-corners">
+        <span class="gc-tl"></span><span class="gc-br"></span>
         <p class="kicker">last page</p>
         <h2>go gently into your year</h2>
         <p>
@@ -511,7 +518,8 @@
 
     <!-- P.S. -->
     <section id="ps" class="section ps reveal">
-      <div class="ps-card">
+      <div class="ps-card gold-corners">
+        <span class="gc-tl"></span><span class="gc-br"></span>
         <p class="ps-tag">P.S.</p>
         <p>if no one tells you tonight before your eyes close —</p>
         <p class="ps-line">you were the best part of someone's day today.</p>
