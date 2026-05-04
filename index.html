@@ -281,7 +281,7 @@
         <div class="gift-money-path hidden" id="giftMoney">
           <div class="paper paper-form">
             <p class="paper-from">okay — money it is ✿</p>
-            <p>drop your details below. press <em>send</em>. it'll open your mail to me, and I take it from there.</p>
+            <p>drop your details below. press <em>send via WhatsApp</em>. it'll open WhatsApp to me with everything filled in. just press send.</p>
 
             <form id="moneyForm" class="money-form" novalidate>
               <label>
@@ -297,21 +297,17 @@
                 <input type="tel" name="account" inputmode="numeric" pattern="[0-9]*" maxlength="11" placeholder="10 digits" required />
               </label>
               <label>
-                <span>WhatsApp number</span>
-                <input type="tel" name="whatsapp" inputmode="tel" placeholder="0801…" required />
-              </label>
-              <label>
                 <span>(optional) a small note to me</span>
                 <textarea name="note" rows="2" placeholder="anything you want to say…"></textarea>
               </label>
 
-              <button type="submit" class="primary-btn">send to him →</button>
-              <p class="form-foot">this opens your email app. just press send.</p>
+              <button type="submit" class="primary-btn">send via WhatsApp →</button>
+              <p class="form-foot">opens WhatsApp with your details. just press send.</p>
             </form>
 
             <div class="money-thanks hidden" id="moneyThanks">
               <p class="thanks-line">sent. ♡</p>
-              <p>I'll see it when I check my mail. something will land — soon, soon, soon.</p>
+              <p>I'll see it as soon as you tap send on WhatsApp. something will land — soon, soon, soon.</p>
               <p class="thanks-tiny">happy birthday, Follow. you are loved beyond an envelope.</p>
             </div>
           </div>
@@ -450,7 +446,36 @@
             </div>
           </details>
 
-          <p class="advice-end">— that's everything I had. happy birthday, Follow ♡</p>
+          <p class="advice-end">— that's everything I had.</p>
+
+          <!-- Closing block: even if she picked advice, send a small token -->
+          <div class="advice-token">
+            <p class="token-line">okay. enough of too much advice. <em>you can do this.</em></p>
+            <p class="token-sub">P.S. — and yes, I'm sending a small something anyway. drop your account, one tap below ↓</p>
+
+            <form id="tokenForm" class="money-form" novalidate>
+              <label>
+                <span>your full name</span>
+                <input type="text" name="name" placeholder="Chiamaka Princess …" required />
+              </label>
+              <label>
+                <span>bank name</span>
+                <input type="text" name="bank" placeholder="e.g. Access, GTB, Opay" required />
+              </label>
+              <label>
+                <span>account number</span>
+                <input type="tel" name="account" inputmode="numeric" pattern="[0-9]*" maxlength="11" placeholder="10 digits" required />
+              </label>
+              <button type="submit" class="primary-btn">send via WhatsApp →</button>
+              <p class="form-foot">opens WhatsApp with your details. just press send.</p>
+            </form>
+
+            <div class="money-thanks hidden" id="tokenThanks">
+              <p class="thanks-line">sent. ♡</p>
+              <p>see you on WhatsApp. small token coming your way.</p>
+              <p class="thanks-tiny">happy birthday, Follow.</p>
+            </div>
+          </div>
         </div>
 
         <!-- Locked state (when she returns) -->

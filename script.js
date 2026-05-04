@@ -6,7 +6,7 @@
   'use strict';
 
   /* ---------- config ---------- */
-  const RECIPIENT_EMAIL = 'somtochukwu.okoma@ethnoscyber.com';
+  const WHATSAPP_NUMBER = '2349153203421'; // +234 915 320 3421
   const STORAGE_KEY = 'follow-bday-v1';
 
   /* ---------- ?reset / ?test URL trick (private to you) ---------- */
@@ -727,22 +727,43 @@
   });
 
   /* ---------- Reveal on scroll ---------- */
+  // threshold: 0 + bottom rootMargin so sections reveal as their top edge enters
+  // (a higher threshold breaks tall sections like the 50-card grid which take a
+  // long scroll before any % is met)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in');
         if (entry.target.id === 'thirty') {
-          // stagger card reveal
           const cs = entry.target.querySelectorAll('.card');
           cs.forEach((c, i) => {
-            setTimeout(() => c.classList.add('in'), i * 60);
+            setTimeout(() => c.classList.add('in'), Math.min(i * 30, 1200));
           });
         }
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Safety net: if a .reveal element is already on screen at load (or the
+  // observer doesn't fire on iOS for any reason), force-reveal anything within
+  // the viewport after a short delay.
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          el.classList.add('in');
+          if (el.id === 'thirty') {
+            el.querySelectorAll('.card').forEach((c, i) => {
+              setTimeout(() => c.classList.add('in'), Math.min(i * 30, 1200));
+            });
+          }
+        }
+      });
+    }, 250);
+  });
 
   /* ---------- Gift: Money or Advice ---------- */
   const giftStage = document.getElementById('giftStage');
@@ -816,36 +837,75 @@
     const name = (fd.get('name') || '').toString().trim();
     const bank = (fd.get('bank') || '').toString().trim();
     const account = (fd.get('account') || '').toString().trim();
-    const whatsapp = (fd.get('whatsapp') || '').toString().trim();
     const note = (fd.get('note') || '').toString().trim();
 
-    if (!name || !bank || !account || !whatsapp) {
+    if (!name || !bank || !account) {
       shake(moneyForm);
       return;
     }
 
-    const subject = `🎁 from Princess — account details`;
-    const body =
-`hi —
+    const message =
+`hi 👋 it's me — Princess.
 
-it's Chiamaka. I picked the envelope. here are my details:
+I picked the envelope on the birthday page 🎁
 
-  • name      : ${name}
-  • bank      : ${bank}
-  • account # : ${account}
-  • whatsapp  : ${whatsapp}
+here are my details:
 
-${note ? `note: ${note}\n\n` : ''}thank you for thinking of me. ♡
-— Follow`;
+• name: ${name}
+• bank: ${bank}
+• account: ${account}${note ? `
 
-    const mailto = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+note: ${note}` : ''}
+
+thank you. ♡`;
+
+    const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    // Use _blank so it opens WhatsApp directly (and doesn't replace the page)
+    window.open(wa, '_blank');
 
     setTimeout(() => {
       moneyForm.classList.add('hidden');
       moneyThanks?.classList.remove('hidden');
       burstConfetti(120);
       writeState({ choice: 'money', at: Date.now(), submitted: true });
+    }, 400);
+  });
+
+  /* ---------- Advice closing — token form (also via WhatsApp) ---------- */
+  const tokenForm = document.getElementById('tokenForm');
+  const tokenThanks = document.getElementById('tokenThanks');
+  tokenForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(tokenForm);
+    const name = (fd.get('name') || '').toString().trim();
+    const bank = (fd.get('bank') || '').toString().trim();
+    const account = (fd.get('account') || '').toString().trim();
+
+    if (!name || !bank || !account) {
+      shake(tokenForm);
+      return;
+    }
+
+    const message =
+`hi 👋 it's me — Princess.
+
+I picked advice on the birthday page, but you said something would still come 😄
+
+here are my details for the token:
+
+• name: ${name}
+• bank: ${bank}
+• account: ${account}
+
+thank you. ♡`;
+
+    const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(wa, '_blank');
+
+    setTimeout(() => {
+      tokenForm.classList.add('hidden');
+      tokenThanks?.classList.remove('hidden');
+      burstConfetti(80);
     }, 400);
   });
 
